@@ -1,0 +1,42 @@
+package com.java.student;
+
+//import java.sql.DriverManager;
+//import java.sql.Connection;
+import java.sql.*;
+
+public class InsertData {
+
+	public static void main(String[] args) {
+		
+		Connection con = null;
+		try {
+		
+		//load the driver software
+		Class.forName("org.postgresql.Driver");
+	
+		//establish the connection
+		con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/jdbcprogram","postgres","root");
+		System.out.println(con);
+		
+		//create statement
+		Statement s = con.createStatement();
+		
+		//execute the query
+		//boolean res = s.execute("delete from student where name = 'Puja'");
+		boolean res = s.execute("insert into student values(101,'Puja',23456781,98.56,'puja@123')"); //sql query
+		System.out.println(res);
+		}catch(ClassNotFoundException | SQLException e){
+			e.printStackTrace();
+			
+		}
+		finally {
+			try {
+				con.close();//checked exception
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+
+	}
+
+}
